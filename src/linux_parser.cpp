@@ -93,15 +93,17 @@ float LinuxParser::MemoryUtilization() {
 }
 
 long LinuxParser::UpTime() {
+  long upTime = 0;
+
   std::ifstream upTimeFile{LinuxParser::kProcDirectory +
                            LinuxParser::kUptimeFilename};
 
   string line;
-  std::getline(upTimeFile, line);
-
-  std::istringstream lineStream{line};
-  long upTime;
-  lineStream >> upTime;
+  if (upTimeFile.is_open()) {
+    std::getline(upTimeFile, line);
+    std::istringstream lineStream{line};
+    lineStream >> upTime;
+  }
   return upTime;
 }
 
