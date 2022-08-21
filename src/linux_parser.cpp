@@ -117,8 +117,7 @@ long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
 
 long LinuxParser::ActiveJiffies() {
   long activeJiffies = 0;
-  for (const long& value : LinuxParser::CpuUtilization())
-    activeJiffies += value;
+  for (const long& value : LinuxParser::CpuStatValues()) activeJiffies += value;
   return activeJiffies;
 }
 
@@ -140,7 +139,7 @@ long LinuxParser::IdleJiffies() {
   return idleJiffies;
 }
 
-vector<long> LinuxParser::CpuUtilization() {
+vector<long> LinuxParser::CpuStatValues() {
   vector<long> cpuStatValues{};
 
   std::ifstream statFile{LinuxParser::kProcDirectory +
