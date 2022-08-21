@@ -117,21 +117,8 @@ long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
 
 long LinuxParser::ActiveJiffies() {
   long activeJiffies = 0;
-
-  std::ifstream statFile{LinuxParser::kProcDirectory +
-                         LinuxParser::kStatFilename};
-
-  if (statFile.is_open()) {
-    string line;
-    std::getline(statFile, line);
-    std::istringstream lineStream{line};
-    string cpu;
-    lineStream >> cpu;
-    long value;
-    while (lineStream >> value) {
-      activeJiffies += value;
-    }
-  }
+  for (const long& value : LinuxParser::CpuUtilization())
+    activeJiffies += value;
   return activeJiffies;
 }
 
