@@ -122,21 +122,10 @@ long LinuxParser::ActiveJiffies() {
 }
 
 long LinuxParser::IdleJiffies() {
-  long idleJiffies = 0;
-
-  std::ifstream statFile{LinuxParser::kProcDirectory +
-                         LinuxParser::kStatFilename};
-
-  if (statFile.is_open()) {
-    string line;
-    std::getline(statFile, line);
-    std::istringstream lineStream{line};
-    string cpu;
-    long user, nice, system, idle, iowait;
-    lineStream >> cpu >> user >> nice >> system >> idle >> iowait;
-    idleJiffies = idle + iowait;
-  }
-  return idleJiffies;
+  auto cpuStatValues = LinuxParser::CpuStatValues();
+  long idle = cpuStatValues[LinuxParser::CPUStates::kIdle_];
+  long iowait = cpuStatValues[LinuxParser::CPUStates::kIOwait_];
+  return idle + iowait;
 }
 
 vector<long> LinuxParser::CpuStatValues() {
