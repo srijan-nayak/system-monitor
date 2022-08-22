@@ -111,9 +111,32 @@ long LinuxParser::Jiffies() {
   return LinuxParser::UpTime() * sysconf(_SC_CLK_TCK);
 }
 
-// TODO: Read and return the number of active jiffies for a PID
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
+long LinuxParser::ActiveJiffies(int pid) {
+  long activeJiffies = 0;
+
+  std::ifstream processStatFile{LinuxParser::kProcDirectory + to_string(pid) +
+                                LinuxParser::kStatFilename};
+
+  if (processStatFile.is_open()) {
+    string line;
+    std::getline(processStatFile, line);
+    std::istringstream lineStream{line};
+
+    string ignoredToken;
+    long jiffies;
+    // ignore all tokens except token 14-17 and add them to activeJiffies
+    for (int i = 0; i < 17; ++i) {
+      if (i < 13) {
+        lineStream >> ignoredToken;
+      } else {
+        lineStream >> jiffies;
+        activeJiffies += jiffies;
+      }
+    }
+  }
+
+  return activeJiffies;
+}
 
 long LinuxParser::ActiveJiffies() {
   long activeJiffies = 0;
