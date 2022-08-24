@@ -10,7 +10,7 @@ class Process {
  public:
   explicit Process(int pid);
   [[nodiscard]] int Pid() const;
-  std::string User();                      // TODO: See src/process.cpp
+  [[nodiscard]] std::string User() const;
   [[nodiscard]] std::string Command() const;
   float CpuUtilization();                  // TODO: See src/process.cpp
   [[nodiscard]] std::string Ram() const;
