@@ -140,7 +140,14 @@ long LinuxParser::ActiveJiffies(int pid) {
 
 long LinuxParser::ActiveJiffies() {
   long activeJiffies = 0;
-  for (const long& value : LinuxParser::CpuStatValues()) activeJiffies += value;
+  auto cpuStatValues = LinuxParser::CpuStatValues();
+  for (size_t i = 0; i < cpuStatValues.size(); i++) {
+    // guest and guestnice are already accounted in user and nice
+    if (i != LinuxParser::CPUStates::kGuest_ &&
+        i != LinuxParser::CPUStates::kGuestNice_) {
+      activeJiffies += cpuStatValues[i];
+    }
+  }
   return activeJiffies;
 }
 
