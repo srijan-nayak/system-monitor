@@ -12,5 +12,5 @@ float Processor::Utilization() {
   prevTotal = total;
   prevIdle = idle;
 
-  return (float)(deltaTotal - deltaIdle) / (float)deltaTotal;
+  return (float)(std::abs(deltaTotal - deltaIdle)) / (float)deltaTotal;
 }
