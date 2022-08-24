@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include "linux_parser.h"
+
 using std::string;
 using std::to_string;
 using std::vector;
@@ -18,8 +20,7 @@ int Process::Pid() const { return pid_; }
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { return 0; }
 
-// TODO: Return the command that generated this process
-string Process::Command() { return string(); }
+string Process::Command() const { return LinuxParser::Command(pid_); }
 
 // TODO: Return this process's memory utilization
 string Process::Ram() { return string(); }

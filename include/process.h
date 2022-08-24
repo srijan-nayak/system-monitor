@@ -11,7 +11,7 @@ class Process {
   explicit Process(int pid);
   [[nodiscard]] int Pid() const;
   std::string User();                      // TODO: See src/process.cpp
-  std::string Command();                   // TODO: See src/process.cpp
+  [[nodiscard]] std::string Command() const;
   float CpuUtilization();                  // TODO: See src/process.cpp
   std::string Ram();                       // TODO: See src/process.cpp
   long int UpTime();                       // TODO: See src/process.cpp
