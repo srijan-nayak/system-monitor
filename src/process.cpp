@@ -26,8 +26,7 @@ string Process::Ram() const { return LinuxParser::Ram(pid_); }
 
 string Process::User() const { return LinuxParser::User(pid_); }
 
-// TODO: Return the age of this process (in seconds)
-long int Process::UpTime() { return 0; }
+long long int Process::UpTime() const { return LinuxParser::UpTime(pid_); }
 
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function

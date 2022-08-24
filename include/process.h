@@ -14,7 +14,7 @@ class Process {
   [[nodiscard]] std::string Command() const;
   float CpuUtilization();                  // TODO: See src/process.cpp
   [[nodiscard]] std::string Ram() const;
-  long int UpTime();                       // TODO: See src/process.cpp
+  [[nodiscard]] long long int UpTime() const;
   bool operator<(Process const& a) const;  // TODO: See src/process.cpp
 
  private:
