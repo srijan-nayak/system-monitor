@@ -12,10 +12,10 @@ class System {
  public:
   Processor& Cpu();
   std::vector<Process>& Processes();
-  float MemoryUtilization();
-  long long int UpTime();
-  int TotalProcesses();
-  int RunningProcesses();
+  static float MemoryUtilization();
+  static long long int UpTime();
+  static int TotalProcesses();
+  static int RunningProcesses();
   std::string Kernel();
   std::string OperatingSystem();
 
