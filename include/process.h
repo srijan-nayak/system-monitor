@@ -13,7 +13,7 @@ class Process {
   std::string User();                      // TODO: See src/process.cpp
   [[nodiscard]] std::string Command() const;
   float CpuUtilization();                  // TODO: See src/process.cpp
-  std::string Ram();                       // TODO: See src/process.cpp
+  [[nodiscard]] std::string Ram() const;
   long int UpTime();                       // TODO: See src/process.cpp
   bool operator<(Process const& a) const;  // TODO: See src/process.cpp
 
