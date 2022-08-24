@@ -77,14 +77,13 @@ float LinuxParser::MemoryUtilization() {
 
   string line;
   string key;
-  float value;
   if (memInfoFile.is_open()) {
     while (std::getline(memInfoFile, line)) {
       std::replace(line.begin(), line.end(), ':', ' ');
       std::istringstream lineStream{line};
-      lineStream >> key >> value;
-      if (key == "MemTotal") memTotal = value;
-      if (key == "MemFree") memFree = value;
+      lineStream >> key;
+      if (key == "MemTotal") lineStream >> memTotal;
+      if (key == "MemFree") lineStream >> memFree;
       if (memTotal > 0 && memFree > 0) break;
     }
   }
