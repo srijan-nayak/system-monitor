@@ -6,8 +6,8 @@ class Processor {
   float Utilization();
 
  private:
-  unsigned long long int prevIdle = 0;
-  unsigned long long int prevTotal = 0;
+  long long int prevIdle = 0;
+  long long int prevTotal = 0;
 };
 
 #endif

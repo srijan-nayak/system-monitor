@@ -4,7 +4,7 @@
 #include <string>
 
 namespace Format {
-std::string ElapsedTime(unsigned long long int seconds);
+std::string ElapsedTime(long long int seconds);
 };  // namespace Format
 
 #endif

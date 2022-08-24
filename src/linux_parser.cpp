@@ -91,8 +91,8 @@ float LinuxParser::MemoryUtilization() {
   return (memTotal - memFree) / memTotal;
 }
 
-unsigned long long int LinuxParser::UpTime() {
-  unsigned long long int upTime = 0;
+long long int LinuxParser::UpTime() {
+  long long int upTime = 0;
 
   std::ifstream upTimeFile{LinuxParser::kProcDirectory +
                            LinuxParser::kUptimeFilename};
@@ -106,12 +106,12 @@ unsigned long long int LinuxParser::UpTime() {
   return upTime;
 }
 
-unsigned long long int LinuxParser::Jiffies() {
+long long int LinuxParser::Jiffies() {
   return LinuxParser::UpTime() * sysconf(_SC_CLK_TCK);
 }
 
-unsigned long long int LinuxParser::ActiveJiffies(int pid) {
-  unsigned long long int activeJiffies = 0;
+long long int LinuxParser::ActiveJiffies(int pid) {
+  long long int activeJiffies = 0;
 
   std::ifstream processStatFile{LinuxParser::kProcDirectory + to_string(pid) +
                                 LinuxParser::kStatFilename};
@@ -122,7 +122,7 @@ unsigned long long int LinuxParser::ActiveJiffies(int pid) {
     std::istringstream lineStream{line};
 
     string ignoredToken;
-    unsigned long long int jiffies;
+    long long int jiffies;
     // ignore all tokens except token 14-17 and add them to activeJiffies
     for (int i = 0; i < 17; ++i) {
       if (i < 13) {
@@ -137,8 +137,8 @@ unsigned long long int LinuxParser::ActiveJiffies(int pid) {
   return activeJiffies;
 }
 
-unsigned long long LinuxParser::ActiveJiffies() {
-  unsigned long long activeJiffies = 0;
+long long int LinuxParser::ActiveJiffies() {
+  long long activeJiffies = 0;
   auto cpuStatValues = LinuxParser::CpuStatValues();
   for (size_t i = 0; i < cpuStatValues.size(); i++) {
     // guest and guestnice are already accounted in user and nice
@@ -150,15 +150,15 @@ unsigned long long LinuxParser::ActiveJiffies() {
   return activeJiffies;
 }
 
-unsigned long long int LinuxParser::IdleJiffies() {
+long long int LinuxParser::IdleJiffies() {
   auto cpuStatValues = LinuxParser::CpuStatValues();
   auto idle = cpuStatValues[LinuxParser::CPUStates::kIdle_];
   auto iowait = cpuStatValues[LinuxParser::CPUStates::kIOwait_];
   return idle + iowait;
 }
 
-vector<unsigned long long int> LinuxParser::CpuStatValues() {
-  vector<unsigned long long int> cpuStatValues{};
+vector<long long int> LinuxParser::CpuStatValues() {
+  vector<long long int> cpuStatValues{};
 
   std::ifstream statFile{LinuxParser::kProcDirectory +
                          LinuxParser::kStatFilename};
@@ -168,7 +168,7 @@ vector<unsigned long long int> LinuxParser::CpuStatValues() {
     std::getline(statFile, line);
     std::istringstream lineStream{line};
     string cpu;
-    unsigned long long int value;
+    long long int value;
     lineStream >> cpu;
     while (lineStream >> value) {
       cpuStatValues.emplace_back(value);
@@ -231,7 +231,7 @@ string LinuxParser::Command(int pid) {
 }
 
 string LinuxParser::Ram(int pid) {
-  unsigned long long int ramUsage = 0;
+  long long int ramUsage = 0;
 
   std::ifstream processStatusFile{LinuxParser::kProcDirectory + to_string(pid) +
                                   LinuxParser::kStatusFilename};
@@ -298,8 +298,8 @@ string LinuxParser::User(int pid) {
   return user;
 }
 
-unsigned long long int LinuxParser::UpTime(int pid) {
-  unsigned long long int upTime = 0;
+long long int LinuxParser::UpTime(int pid) {
+  long long int upTime = 0;
 
   std::ifstream processStatFle{LinuxParser::kProcDirectory + to_string(pid) +
                                LinuxParser::kStatFilename};
@@ -315,7 +315,7 @@ unsigned long long int LinuxParser::UpTime(int pid) {
       lineStream >> token;
     }
 
-    unsigned long long int startTime;
+    long long int startTime;
     lineStream >> startTime;
     startTime /= sysconf(_SC_CLK_TCK);
     upTime = LinuxParser::UpTime() - startTime;
