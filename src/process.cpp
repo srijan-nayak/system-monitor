@@ -2,16 +2,9 @@
 
 #include <unistd.h>
 
-#include <cctype>
-#include <sstream>
 #include <string>
-#include <vector>
 
 #include "linux_parser.h"
-
-using std::string;
-using std::to_string;
-using std::vector;
 
 Process::Process(int pid) : pid_(pid) {}
 
@@ -24,11 +17,11 @@ float Process::CpuUtilization() const {
   return ((float)activeSeconds / (float)elapsedSeconds);
 }
 
-string Process::Command() const { return LinuxParser::Command(pid_); }
+std::string Process::Command() const { return LinuxParser::Command(pid_); }
 
-string Process::Ram() const { return LinuxParser::Ram(pid_); }
+std::string Process::Ram() const { return LinuxParser::Ram(pid_); }
 
-string Process::User() const { return LinuxParser::User(pid_); }
+std::string Process::User() const { return LinuxParser::User(pid_); }
 
 long long int Process::UpTime() const { return LinuxParser::UpTime(pid_); }
 
