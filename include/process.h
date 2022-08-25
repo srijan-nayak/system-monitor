@@ -18,7 +18,7 @@ class Process {
   bool operator<(Process const& other) const;
 
  private:
-  const int pid_;
+  int pid_;
 };
 
 #endif
