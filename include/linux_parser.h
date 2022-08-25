@@ -1,15 +1,13 @@
 #ifndef SYSTEM_PARSER_H
 #define SYSTEM_PARSER_H
 
-#include <fstream>
-#include <regex>
 #include <string>
+#include <vector>
 
 namespace LinuxParser {
 // Paths
 const std::string kProcDirectory{"/proc/"};
 const std::string kCmdlineFilename{"/cmdline"};
-const std::string kCpuinfoFilename{"/cpuinfo"};
 const std::string kStatusFilename{"/status"};
 const std::string kStatFilename{"/stat"};
 const std::string kUptimeFilename{"/uptime"};
