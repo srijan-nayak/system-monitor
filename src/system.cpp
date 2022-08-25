@@ -1,5 +1,6 @@
 #include "system.h"
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,9 @@ std::vector<Process>& System::Processes() {
   for (const auto& pid : LinuxParser::Pids()) {
     processes_.emplace_back(Process(pid));
   }
+  std::sort(processes_.begin(), processes_.end(), [](Process a, Process b) {
+    return b < a;
+  });
   return processes_;
 }
 
