@@ -12,7 +12,7 @@ System monitor implementation based on the starter code found in this
    git clone https://github.com/srijan-nayak/CppND-System-Monitor
    ```
 
-2. Build and run
+2. Build and run from the project root
    ```bash
    make build
    build/monitor
