@@ -4,9 +4,7 @@
 #include <sstream>
 #include <string>
 
-using std::string;
-
-string Format::ElapsedTime(long long int seconds) {
+std::string Format::ElapsedTime(long long int seconds) {
   const long long int elapsedHours = seconds / 3600;
   const unsigned short elapsedMinutes = (seconds % 3600) / 60;
   const unsigned short elapsedSeconds = (seconds % 3600) % 60;
